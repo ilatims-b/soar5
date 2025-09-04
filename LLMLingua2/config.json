@@ -1,6 +1,6 @@
 {
   "api_config": {
-    "api_key": "XBzGHXJILP6kKPDd40IvY73vrhTAedh58GiQPxCK",
+    "api_key": "",
     "base_url": "https://api.scaledown.xyz/compress/",
     "model": "gemini/gemini-2.0-flash"
   },
