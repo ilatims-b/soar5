@@ -86,7 +86,11 @@ class ScaleDownAPI:
             'x-api-key': self.api_key,
             'Content-Type': 'application/json'
         }
-        
+        print(x-api-key)
+        print(base_url)
+        print(model)
+        print(context)
+        print(prompt)
         try:
             response = requests.post(self.base_url, headers=headers, json=payload, timeout=30)
             if response.status_code == 200:
@@ -220,7 +224,7 @@ class LLMLingua2Compressor:
         }
         
         # Original (uncompressed) prompt
-        original_context = "\n\n".join([f"Passage {i+1}: {ctx}" for i, ctx in enumerate(contexts)])
+        original_context = "\n\n".join(contexts)
         original_response = self.api_client.get_response(original_context, query)
         
         result['original'] = {
