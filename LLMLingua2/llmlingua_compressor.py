@@ -97,10 +97,10 @@ class ScaleDownAPI:
             # Debug response details
             print(f"Response Status Code: {response.status_code}")
             print(f"Response Headers: {dict(response.headers)}")
-            print(response.text)
+            print(response.json().get('full_response'))
             #if response.status_code == 200:
 
-                #return response.json().get('full_response', '')
+                #return response.json().get('full_response')
         except Exception as e:
             print(f"API Error: {e}")
         
