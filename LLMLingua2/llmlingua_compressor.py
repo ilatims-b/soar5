@@ -86,7 +86,7 @@ class ScaleDownAPI:
             'x-api-key': self.api_key,
             'Content-Type': 'application/json'
         }
-        print(x-api-key)
+        print(api_key)
         print(base_url)
         print(model)
         print(context)
