@@ -93,14 +93,14 @@ class ScaleDownAPI:
         print(prompt)
         try:
             response = requests.post(self.base_url, headers=headers, data=json.dumps(payload))
-            print(response.json().get('full_response'))
+            #print(response.json().get('full_response'))
             # Debug response details
             print(f"Response Status Code: {response.status_code}")
-            print(f"Response Headers: {dict(response.headers)}")
+            #print(f"Response Headers: {dict(response.headers)}")
             print(response.json().get('full_response'))
             #if response.status_code == 200:
 
-                #return response.json().get('full_response')
+            return response.json().get('full_response')
         except Exception as e:
             print(f"API Error: {e}")
         
