@@ -92,7 +92,7 @@ class ScaleDownAPI:
         print(context)
         print(prompt)
         try:
-            response = requests.post(self.base_url, headers=headers, data=json.dumps(payload), timeout=30)
+            response = requests.post(self.base_url, headers=headers, data=json.dumps(payload))
             print(response.json().get('full_response'))
             # Debug response details
             print(f"Response Status Code: {response.status_code}")
