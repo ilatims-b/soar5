@@ -1,0 +1,18 @@
+{
+  "api_config": {
+    "api_key": "XBzGHXJILP6kKPDd40IvY73vrhTAedh58GiQPxCK",
+    "base_url": "https://api.scaledown.xyz/compress/",
+    "model": "gemini/gemini-2.0-flash"
+  },
+  "dataset_config": {
+    "version": "v2.1",
+    "query_type": "NUMERIC",
+    "max_examples": 5000
+  },
+  "compression_methods": {
+    "method1_rate": {"rate": 0.33},
+    "method2_target_tokens": {"target_token": 150},
+    "method3_target_contexts": {"target_context": 3}
+  },
+  "context_separator": "<|CONTEXT_SEP|>"
+}

@@ -1,0 +1,16 @@
+# LLMLingua2 MS MARCO Evaluation - Simple Requirements
+
+# Core packages (install via pip or conda)
+llmlingua>=0.2.2
+datasets>=2.14.0
+transformers>=4.26.0
+torch>=2.0.0
+accelerate>=0.20.0
+tiktoken>=0.4.0
+requests>=2.31.0
+
+# For GPU support (optional - needed for LLMLingua2)
+# If no GPU available, run compression part on Kaggle/Colab
+
+# Installation:
+# pip install -r requirements.txt
