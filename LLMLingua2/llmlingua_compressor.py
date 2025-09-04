@@ -146,8 +146,8 @@ class LLMLingua2Compressor:
             if not example['answers'] or not example['answers'][0]:
                 continue
                 
-            #if example['answers'][0].lower().strip() in ['no answer', 'no answer present', 'no answer present.']:
-                #continue
+            if example['answers'][0].lower().strip() in ['no answer', 'no answer present', 'no answer present.']:
+                continue
             print(example['query_type'])    
             filtered_examples.append(example)
         
