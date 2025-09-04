@@ -97,7 +97,7 @@ class ScaleDownAPI:
             # Debug response details
             print(f"Response Status Code: {response.status_code}")
             print(f"Response Headers: {dict(response.headers)}")
-        
+            print(response.text)
             #if response.status_code == 200:
 
                 #return response.json().get('full_response', '')
