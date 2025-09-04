@@ -94,7 +94,7 @@ class ScaleDownAPI:
         try:
             response = requests.post(self.base_url, headers=headers, json=payload, timeout=30)
             if response.status_code == 200:
-                print(response.json().get('full_response')
+                print(response.json().get('full_response'))
                 #return response.json().get('full_response', '')
         except Exception as e:
             print(f"API Error: {e}")
