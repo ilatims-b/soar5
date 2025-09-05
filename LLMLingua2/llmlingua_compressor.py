@@ -263,7 +263,7 @@ class LLMLingua2Compressor:
     
     def run_compression(self, num_examples: int = None) -> List[Dict]:
         """Run compression on dataset"""
-        examples = self.load_dataset(self.start)
+        examples = self.load_dataset(self)
         
         if num_examples:
             examples = examples[:num_examples]
