@@ -110,10 +110,10 @@ class ScaleDownAPI:
 class LLMLingua2Compressor:
     """Main compression class"""
     
-    def __init__(self, config_path: str = "config.json"):
+    def __init__(self, config_path: str = "config.json", external_dataset_path: str= None):
         with open(config_path, 'r') as f:
             self.config = json.load(f)
-        
+        self.external_dataset_path = external_dataset_path
         # Initialize components
         self.context_tracker = ContextTracker(self.config['context_separator'])
         self.api_client = ScaleDownAPI(
@@ -129,12 +129,22 @@ class LLMLingua2Compressor:
             use_llmlingua2=True,
             device_map="auto"  # Will use GPU if available
         )
-    
-    def load_dataset(self) -> List[Dict]:
-        """Load and filter MS MARCO dataset"""
-        print("Loading MS MARCO dataset...")
-        dataset = load_dataset('microsoft/ms_marco', self.config['dataset_config']['version'])['validation']
-        numeric_example_count=0
+     def load_external_json_datset(self, file_path: str) -> List[Dict]:
+         print(f"Loading external dataset from {file_path}...")
+         with open(file_path, 'r') as f:
+             data=json.load(f)
+        return data  
+     def load_dataset(self) -> List[Dict]:
+        """Load and filter MS MARCO dataset or external dataset if provided"""
+        if self.external_dataset_path is not None:
+            # Load external dataset
+            dataset = self.load_external_json_dataset(self.external_dataset_path)
+        else:
+            # Load MS MARCO dataset as before
+            print("Loading MS MARCO dataset...")
+            dataset = load_dataset('microsoft/ms_marco', self.config['dataset_config']['version'])['validation']
+        
+        numeric_example_count = 0
         filtered_examples = []
         for example in dataset:
             if len(filtered_examples) >= self.config['dataset_config']['max_examples']:
@@ -148,15 +158,14 @@ class LLMLingua2Compressor:
                 
             if example['answers'][0].lower().strip() in ['no answer', 'no answer present', 'no answer present.']:
                 continue
-
-            numeric_example_count+=1
-            if numeric_example_count<self.config['dataset_config']['start']:
+            numeric_example_count += 1
+            if numeric_example_count < self.config['dataset_config']['start']:
                 continue
-            #print(example['query_type'])    
             filtered_examples.append(example)
         
         print(f"Loaded {len(filtered_examples)} examples")
         return filtered_examples
+        
     
     def compress_with_method(self, contexts: List[str], query: str, method_config: Dict) -> Dict:
         """Apply compression method"""
@@ -297,10 +306,11 @@ def main():
     parser.add_argument('--num_examples', type=int, help='Number of examples to process')
     parser.add_argument('--output', default='compression_results.json', help='Output file')
     parser.add_argument('--config', default='config.json', help='Config file')
+    parser.add_argument('--dataset', help='External JSON dataset file path (optional)')
     
     args = parser.parse_args()
     
-    compressor = LLMLingua2Compressor(args.config)
+    compressor = LLMLingua2Compressor(args.config, args.dataset)
     results = compressor.run_compression(args.num_examples)
     compressor.save_results(results, args.output)
 
