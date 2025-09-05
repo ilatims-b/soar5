@@ -129,11 +129,13 @@ class LLMLingua2Compressor:
             use_llmlingua2=True,
             device_map="auto"  # Will use GPU if available
         )
-     def load_external_json_datset(self, file_path: str) -> List[Dict]:
-         print(f"Loading external dataset from {file_path}...")
-         with open(file_path, 'r') as f:
-             data=json.load(f)
-        return data  
+
+    def load_external_json_dataset(self, file_path: str) -> List[Dict]:
+        print(f"Loading external dataset from {file_path}...")
+        with open(file_path, 'r') as f:
+            data=json.load(f)
+        return data
+    
      def load_dataset(self) -> List[Dict]:
         """Load and filter MS MARCO dataset or external dataset if provided"""
         if self.external_dataset_path is not None:
