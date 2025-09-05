@@ -134,7 +134,7 @@ class LLMLingua2Compressor:
         """Load and filter MS MARCO dataset"""
         print("Loading MS MARCO dataset...")
         dataset = load_dataset('microsoft/ms_marco', self.config['dataset_config']['version'])['validation']
-        
+        numeric_example_count=0
         filtered_examples = []
         for example in dataset:
             if len(filtered_examples) >= self.config['dataset_config']['max_examples']:
@@ -148,7 +148,11 @@ class LLMLingua2Compressor:
                 
             if example['answers'][0].lower().strip() in ['no answer', 'no answer present', 'no answer present.']:
                 continue
-            print(example['query_type'])    
+
+            numeric_example_count+=1
+            if numeric_example_count<self.config['dataset_config']['start']:
+                continue
+            #print(example['query_type'])    
             filtered_examples.append(example)
         
         print(f"Loaded {len(filtered_examples)} examples")
@@ -259,7 +263,7 @@ class LLMLingua2Compressor:
     
     def run_compression(self, num_examples: int = None) -> List[Dict]:
         """Run compression on dataset"""
-        examples = self.load_dataset()
+        examples = self.load_dataset(self.start)
         
         if num_examples:
             examples = examples[:num_examples]
