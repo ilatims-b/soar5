@@ -136,7 +136,7 @@ class LLMLingua2Compressor:
             data=json.load(f)
         return data
     
-     def load_dataset(self) -> List[Dict]:
+    def load_dataset(self) -> List[Dict]:
         """Load and filter MS MARCO dataset or external dataset if provided"""
         if self.external_dataset_path is not None:
             # Load external dataset
